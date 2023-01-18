@@ -12,13 +12,16 @@ html,body {
 }
 
 body {
-    font-size: 16px;
-    position: relative;
-    color: $font-color;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    display: flex;
-    flex-direction: column;
+  font-size: 16px;
+  position: relative;
+  color: $font-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  color: #333b41;
+  background: #f5f5f5;
+  height: 100vh;
 }
 
 //если закомменчено, значит вынесено в другой блок для наглядной реализации функционала
@@ -31,8 +34,8 @@ body {
 // }
 
 .container {
-		width: 100%;
-    max-width: 1200px;
+		width: 98%;
+    // max-width: 1200px;
     height: 100%;
     margin: 0 auto;
     display: flex;
@@ -42,44 +45,44 @@ body {
   }
 
 h1,h2,h3,h4,h5,h6 {
-    margin-top: 0;
-    font-weight: normal;
+  margin-top: 0;
+  font-weight: normal;
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 ul {
-    padding: 0;
-    margin: 0;
-    li {
-        list-style: none;
-     }
+  padding: 0;
+  margin: 0;
+  li {
+    list-style: none;
+  }
 }
 
 p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 footer {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
 }
 
 button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-		color: inherit;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
 }
 
 input::-webkit-inner-spin-button,
 input::-webkit-outer-spin-button {
-    -webkit-appearance: none; margin: 0px;
-        }
+  -webkit-appearance: none; margin: 0px;
+    }
 
 a {
   text-decoration: none;
@@ -90,4 +93,25 @@ fieldset {
   padding: 0;
   margin: 0;
   border: none;
+}
+
+.button {
+  font-family: "Lato-Bold" , Arial, sans-serif;
+  width: 100%;
+  height: 40px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
+  box-shadow: 2px 2px 0 rgba(208, 208, 208 ,25%);
+  background: #fff;
+  transition: .5s;
+  user-select: none;
+
+    &:hover {
+      background: #ffeac8;
+    }
 }
