@@ -11,7 +11,7 @@ export class Router {
   constructor(routes: RouterOptions[], container: HTMLElement, listeners: ButtonElement[]) {
     this.routes = routes;
     this.container = container;
-    this.nestedRoute = '/';
+    this.nestedRoute = this.isGithub();
     this.addListeners(listeners);
     this.loadInitialRoute();
   }
@@ -20,7 +20,6 @@ export class Router {
     const matchedRoute = this.matchUrlToRoute(urlSegments);
 
     const url = this.nestedRoute + `${urlSegments.join('/')}`;
-    // console.log(window.location.pathname);
     history.pushState({}, '', url);
 
     this.container.innerHTML = '';
@@ -41,9 +40,10 @@ export class Router {
   }
 
   private loadInitialRoute() {
-    const pathnameSplit = window.location.pathname.split('/');
+    const pathnameSplit = this.nestedRoute.length > 1 ? this.getPathnameSplit() : window.location.pathname.split('/');
+    console.log(pathnameSplit);
     const pathSegments = pathnameSplit.length > 1 ? pathnameSplit.slice(1) : '';
-    this.nestedRoute = this.isNested();
+    console.log(pathSegments);
     this.loadRoute(...pathSegments);
   }
 
@@ -53,8 +53,11 @@ export class Router {
     );
   }
 
-  private isNested() {
-    const notNested = this.routes.some((item) => item.path === window.location.pathname);
-    return window.location.pathname.length > 1 && !notNested ? window.location.pathname : '/';
+  private getPathnameSplit() {
+    return window.location.pathname.replace('/chervyakov-vladislav-JSFE2022Q3/async-race/', '/');
+  }
+
+  private isGithub() {
+    return window.location.hostname.includes('github') ? '/chervyakov-vladislav-JSFE2022Q3/async-race/' : '/';
   }
 }
