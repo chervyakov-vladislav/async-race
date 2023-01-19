@@ -23,7 +23,7 @@ export class Router {
     history.pushState({}, '', url);
 
     this.container.innerHTML = '';
-    this.container.append((matchedRoute as RouterOptions).template.node);
+    this.container.append(matchedRoute ? (matchedRoute as RouterOptions).template.node : this.routes[0].template.node);
   }
 
   private matchUrlToRoute(urlSegments: string[]) {
@@ -41,9 +41,7 @@ export class Router {
 
   private loadInitialRoute() {
     const pathnameSplit = this.nestedRoute.length > 1 ? this.getPathnameSplit() : window.location.pathname.split('/');
-    console.log(pathnameSplit);
     const pathSegments = pathnameSplit.length > 1 ? pathnameSplit.slice(1) : '';
-    console.log(pathSegments);
     this.loadRoute(...pathSegments);
   }
 
