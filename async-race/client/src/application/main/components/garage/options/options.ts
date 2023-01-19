@@ -72,7 +72,7 @@ export class Options extends DOMElement {
       tagName: 'input',
       type: 'color',
       classList: ['options__input-color'],
-      value: '#ffeac8',
+      value: '#ffffff',
     });
 
     this.updateButton = new ButtonElement(this.row.node, {
