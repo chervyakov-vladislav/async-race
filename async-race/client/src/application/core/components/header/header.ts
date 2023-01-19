@@ -10,9 +10,9 @@ export class Header extends DOMElement {
 
   private headerLogo: DOMElement;
 
-  private garageButton: ButtonElement;
+  public garageButton: ButtonElement;
 
-  private winnersButton: ButtonElement;
+  public winnersButton: ButtonElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, { tagName: 'header', classList: ['header'] });
