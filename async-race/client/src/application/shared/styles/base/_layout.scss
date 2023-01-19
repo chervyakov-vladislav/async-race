@@ -114,4 +114,9 @@ fieldset {
     &:hover {
       background: #ffeac8;
     }
+
+    &:disabled {
+      pointer-events: none;
+      color: rgba(208, 208, 208 ,25%)
+    }
 }

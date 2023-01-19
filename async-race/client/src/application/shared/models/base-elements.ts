@@ -20,6 +20,7 @@ export interface FormOptions extends Options {
 export interface ButtonOptions extends Options {
   id?: string;
   type?: string;
+  disabled?: boolean;
 }
 
 export interface InputOptions extends Options {

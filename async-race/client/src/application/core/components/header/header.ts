@@ -30,13 +30,13 @@ export class Header extends DOMElement {
     this.garageButton = new ButtonElement(this.headerButtons.node, {
       tagName: 'button',
       classList: ['button'],
-      content: 'to garage',
+      content: 'garage',
     });
 
     this.winnersButton = new ButtonElement(this.headerButtons.node, {
       tagName: 'button',
       classList: ['button'],
-      content: 'to winners',
+      content: 'winners',
     });
 
     this.headerLogo = new DOMElement(this.container.node, {

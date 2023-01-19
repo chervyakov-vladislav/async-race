@@ -2,31 +2,35 @@ import './garage-page.scss';
 
 import { DOMElement } from '../../../shared/components/base-elements/dom-element';
 import { Page } from '../../../shared/components/page';
+import { Options } from '../../components/garage/options/options';
 
 export class GaragePage extends Page {
-  private options: DOMElement;
+  private optionsContainer: DOMElement;
 
-  private content: DOMElement;
+  private options: Options;
 
-  private pagination: DOMElement;
+  private contentContainer: DOMElement;
+
+  private paginationContainer: DOMElement;
 
   constructor(id: string) {
     super(id);
 
-    this.options = new DOMElement(this.node, {
+    this.optionsContainer = new DOMElement(this.node, {
       tagName: 'div',
       classList: ['garage__options'],
-      content: 'garage',
     });
 
-    this.content = new DOMElement(this.node, {
+    this.contentContainer = new DOMElement(this.node, {
       tagName: 'div',
       classList: ['garage__content'],
     });
 
-    this.pagination = new DOMElement(this.node, {
+    this.paginationContainer = new DOMElement(this.node, {
       tagName: 'div',
       classList: ['garage__pagination'],
     });
+
+    this.options = new Options(this.optionsContainer.node);
   }
 }

@@ -16,5 +16,9 @@ export class ButtonElement extends DOMElement {
     if (options.type) {
       this.node.setAttribute('type', options.type);
     }
+
+    if (options.disabled) {
+      (this.node as HTMLButtonElement).disabled = options.disabled;
+    }
   }
 }
