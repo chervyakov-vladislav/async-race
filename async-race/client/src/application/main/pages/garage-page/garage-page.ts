@@ -5,6 +5,7 @@ import { Page } from '../../../shared/components/page';
 import { Options } from '../../components/garage/options/options';
 import { Counter } from '../../components/garage/counter/counter';
 import { CarsList } from '../../components/garage/cars-list/cars-list';
+import { Pagination } from '../../components/garage/pagination/pagination';
 
 export class GaragePage extends Page {
   private optionsContainer: DOMElement;
@@ -18,6 +19,8 @@ export class GaragePage extends Page {
   private carList: CarsList;
 
   private paginationContainer: DOMElement;
+
+  private pagination: Pagination;
 
   constructor(id: string) {
     super(id);
@@ -40,5 +43,6 @@ export class GaragePage extends Page {
     this.options = new Options(this.optionsContainer.node);
     this.counter = new Counter(this.contentContainer.node);
     this.carList = new CarsList(this.contentContainer.node);
+    this.pagination = new Pagination(this.paginationContainer.node);
   }
 }
