@@ -1,5 +1,4 @@
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
-import { apiService } from '../../../../shared/services/api.service';
 
 export class CarsList extends DOMElement {
   constructor(parentNode: HTMLElement) {
@@ -7,11 +6,5 @@ export class CarsList extends DOMElement {
       tagName: 'ul',
       classList: ['car-list'],
     });
-
-    this.consolelog();
-  }
-
-  private async consolelog() {
-    console.log(await apiService.getAllCars());
   }
 }
