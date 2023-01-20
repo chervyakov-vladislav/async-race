@@ -18,11 +18,10 @@ class State {
     };
   }
 
-  public async updateState() {
+  public async updateGarageState() {
     const res = await apiService.getCars();
     this.allData.cars = res?.cars;
     this.allData.carsCount = Number(res?.count);
-    console.log(this.allData);
   }
 }
 

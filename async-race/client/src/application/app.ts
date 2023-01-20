@@ -19,7 +19,7 @@ class App {
   }
 
   public async start() {
-    await state.updateState();
+    await state.updateGarageState();
     this.router = new Router(routes, this.main.container, [this.header.garageButton, this.header.winnersButton]);
     // тут повесить листенеры
   }
