@@ -1,6 +1,7 @@
 import { CarInterface } from '../../shared/models/response-data';
 import { state } from '../../shared/services/state';
 import { CarItem } from '../components/garage/cars-list/car-item/car-item';
+import { listeners } from './listeners.service';
 
 class GarageListService {
   public container: HTMLElement | null;
@@ -24,7 +25,7 @@ class GarageListService {
     await state.updateGarageState();
     const container = this.container as HTMLElement;
     container.innerHTML = '';
-    (state.allData.cars as CarInterface[]).forEach((carData) => new CarItem(container, carData));
+    listeners.carItemArr = (state.allData.cars as CarInterface[]).map((carData) => new CarItem(container, carData));
   }
 
   public async updateCounter() {

@@ -11,8 +11,6 @@ class State {
       carsCount: 0,
       winnersPage: 1,
       winnersCount: 0,
-      animation: null,
-      view: 'garage',
       sortBy: null,
       sortOrder: null,
       updateID: 0,

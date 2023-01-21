@@ -7,22 +7,18 @@ class AnimationService {
     this.animationId = 0;
   }
 
-  public animation(iconContainer: HTMLElement, data: EngineData) {
+  public async animation(iconContainer: HTMLElement, data: EngineData) {
     const duration = Math.floor(data.distance / data.velocity);
     const icon = iconContainer.firstChild as HTMLElement;
     const distance = iconContainer.getBoundingClientRect().width - icon.getBoundingClientRect().width - 20;
     const start = performance.now();
 
-    const animate = (time: number) => {
-      let timeFraction = (time - start) / duration;
-      if (timeFraction > 1) timeFraction = 1;
+    const animate = (timestamp: number) => {
+      const currWidth = (timestamp - start) / duration;
+      const progress = currWidth * distance;
+      icon.style.left = progress + 'px';
 
-      const progress = timeFraction * distance;
-      if (icon) {
-        icon.style.left = progress + 'px';
-      }
-
-      if (timeFraction < 1) {
+      if (currWidth < 1) {
         this.animationId = window.requestAnimationFrame(animate);
       }
     };
@@ -34,7 +30,7 @@ class AnimationService {
     cancelAnimationFrame(this.animationId);
   }
 
-  public reset(icon: HTMLElement) {
+  public async reset(icon: HTMLElement) {
     cancelAnimationFrame(this.animationId);
     icon.style.left = '0';
   }

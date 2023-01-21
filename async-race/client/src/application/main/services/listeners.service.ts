@@ -14,10 +14,13 @@ class GarageListenersService {
 
   public updateButton: HTMLButtonElement | null;
 
+  public carItemArr: CarItem[];
+
   constructor() {
     this.updateTextInput = null;
     this.updateColorInput = null;
     this.updateButton = null;
+    this.carItemArr = [];
   }
 
   public appendOptionsListeners(options: Options) {
@@ -64,6 +67,31 @@ class GarageListenersService {
       await garageListService.renderCars();
       (options.updateButton.node as HTMLButtonElement).disabled = true;
       (this.updateTextInput as HTMLInputElement).value = '';
+    });
+
+    options.raceButton.node.addEventListener('click', async () => {
+      this.carItemArr.forEach(async (item, index) => {
+        (item.play.node as HTMLButtonElement).disabled = true;
+        (item.pause.node as HTMLButtonElement).disabled = false;
+
+        const carData = (state.allData.cars as CarInterface[])[index];
+        const data = await apiService.startEngine(carData.id as number);
+        animationService.animation(item.icon.node, data.res);
+
+        const finishSignal = await apiService.isBroken(carData.id as number);
+        if (!finishSignal) animationService.stop();
+      });
+    });
+
+    options.resetButton.node.addEventListener('click', async () => {
+      this.carItemArr.forEach(async (item, index) => {
+        (item.play.node as HTMLButtonElement).disabled = false;
+        (item.pause.node as HTMLButtonElement).disabled = true;
+
+        const carData = (state.allData.cars as CarInterface[])[index];
+        await apiService.stopEngine(carData.id as number);
+        await animationService.reset(item.icon.node.firstChild as HTMLElement);
+      });
     });
   }
 

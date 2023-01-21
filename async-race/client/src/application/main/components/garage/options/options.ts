@@ -20,9 +20,9 @@ export class Options extends DOMElement {
 
   public updateButton: ButtonElement;
 
-  private raceButton: ButtonElement;
+  public raceButton: ButtonElement;
 
-  private resetButton: ButtonElement;
+  public resetButton: ButtonElement;
 
   public generateButton: ButtonElement;
 

@@ -6,8 +6,6 @@ export interface StateInterface {
   carsCount: number;
   winnersPage: number;
   winnersCount: number;
-  animation: null;
-  view: 'garage' | 'winners';
   sortBy: null;
   sortOrder: null;
   updateID: number;
