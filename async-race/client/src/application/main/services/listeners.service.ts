@@ -79,7 +79,7 @@ class GarageListenersService {
         animationService.animation(item.icon.node, data.res);
 
         const finishSignal = await apiService.isBroken(carData.id as number);
-        if (!finishSignal) animationService.stop();
+        if (!finishSignal) await animationService.stop();
       });
     });
 

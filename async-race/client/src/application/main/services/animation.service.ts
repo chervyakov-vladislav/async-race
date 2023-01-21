@@ -26,7 +26,7 @@ class AnimationService {
     this.animationId = window.requestAnimationFrame(animate);
   }
 
-  public stop() {
+  public async stop() {
     cancelAnimationFrame(this.animationId);
   }
 
