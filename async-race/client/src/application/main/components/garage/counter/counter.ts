@@ -18,6 +18,7 @@ export class Counter extends DOMElement {
       classList: ['car-count__counter'],
     });
 
-    garageListService.updateCounter(this.counter.node);
+    garageListService.counter = this.counter.node;
+    garageListService.updateCounter();
   }
 }

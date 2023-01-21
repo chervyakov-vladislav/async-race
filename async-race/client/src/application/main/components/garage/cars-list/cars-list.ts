@@ -24,6 +24,7 @@ export class CarsList extends DOMElement {
       classList: ['car-list__list'],
     });
 
-    garageListService.renderCars(this.list.node);
+    garageListService.container = this.list.node;
+    garageListService.renderCars();
   }
 }

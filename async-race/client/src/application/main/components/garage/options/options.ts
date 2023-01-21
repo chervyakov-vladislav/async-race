@@ -3,15 +3,16 @@ import './options.scss';
 import { ButtonElement } from '../../../../shared/components/base-elements/button-element';
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
 import { InputElement } from '../../../../shared/components/base-elements/input-element';
+import { listeners } from '../../../services/listeners.service';
 
 export class Options extends DOMElement {
   private row: DOMElement;
 
-  private createInput: InputElement;
+  public createInput: InputElement;
 
-  private colorCreateInput: InputElement;
+  public colorCreateInput: InputElement;
 
-  private createButton: ButtonElement;
+  public createButton: ButtonElement;
 
   private updateInput: InputElement;
 
@@ -55,6 +56,7 @@ export class Options extends DOMElement {
       classList: ['button', 'options__button'],
       content: 'create',
     });
+    listeners.createCar(this);
 
     this.row = new DOMElement(this.node, {
       tagName: 'div',
