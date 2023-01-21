@@ -18,13 +18,13 @@ export class Options extends DOMElement {
 
   private colorUpdateInput: InputElement;
 
-  private updateButton: ButtonElement;
+  public updateButton: ButtonElement;
 
   private raceButton: ButtonElement;
 
   private resetButton: ButtonElement;
 
-  private generateButton: ButtonElement;
+  public generateButton: ButtonElement;
 
   constructor(parentNode: HTMLElement) {
     super(parentNode, {
@@ -48,7 +48,7 @@ export class Options extends DOMElement {
       tagName: 'input',
       type: 'color',
       classList: ['options__input-color'],
-      value: '#ffeac8',
+      value: '#ffc261',
     });
 
     this.createButton = new ButtonElement(this.row.node, {
@@ -56,7 +56,6 @@ export class Options extends DOMElement {
       classList: ['button', 'options__button'],
       content: 'create',
     });
-    listeners.createCar(this);
 
     this.row = new DOMElement(this.node, {
       tagName: 'div',
@@ -69,13 +68,15 @@ export class Options extends DOMElement {
       classList: ['options__input-text'],
       placeholder: 'car name',
     });
+    listeners.updateTextInput = this.updateInput.node as HTMLInputElement;
 
     this.colorUpdateInput = new InputElement(this.row.node, {
       tagName: 'input',
       type: 'color',
       classList: ['options__input-color'],
-      value: '#ffffff',
+      value: '#ffc261',
     });
+    listeners.updateColorInput = this.colorUpdateInput.node as HTMLInputElement;
 
     this.updateButton = new ButtonElement(this.row.node, {
       tagName: 'button',
@@ -83,6 +84,7 @@ export class Options extends DOMElement {
       content: 'update',
       disabled: true,
     });
+    listeners.updateButton = this.updateButton.node as HTMLButtonElement;
 
     this.row = new DOMElement(this.node, {
       tagName: 'div',
@@ -106,5 +108,7 @@ export class Options extends DOMElement {
       classList: ['button', 'options__button'],
       content: 'generate',
     });
+
+    listeners.appendOptionsListeners(this);
   }
 }

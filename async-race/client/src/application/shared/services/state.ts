@@ -15,6 +15,7 @@ class State {
       view: 'garage',
       sortBy: null,
       sortOrder: null,
+      updateID: 0,
     };
   }
 

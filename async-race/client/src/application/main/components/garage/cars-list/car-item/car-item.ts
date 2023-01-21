@@ -4,6 +4,7 @@ import { CarInterface } from '../../../../../shared/models/response-data';
 import { CarIcon } from './car-icon';
 import { ButtonElement } from '../../../../../shared/components/base-elements/button-element';
 import { SVG } from '../../../../../shared/components/svg-icons';
+import { listeners } from '../../../../services/listeners.service';
 
 export class CarItem extends DOMElement {
   private icon: CarIcon;
@@ -68,5 +69,6 @@ export class CarItem extends DOMElement {
     this.pause.node.innerHTML = SVG.pause;
 
     this.icon = new CarIcon(this.row.node, carData.color);
+    listeners.appendCarItemLiseners(this, carData);
   }
 }

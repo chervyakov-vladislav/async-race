@@ -10,4 +10,5 @@ export interface StateInterface {
   view: 'garage' | 'winners';
   sortBy: null;
   sortOrder: null;
+  updateID: number;
 }

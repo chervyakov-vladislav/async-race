@@ -1,5 +1,4 @@
 import { CarInterface } from '../../shared/models/response-data';
-import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
 import { CarItem } from '../components/garage/cars-list/car-item/car-item';
 
@@ -32,14 +31,6 @@ class GarageListService {
     await state.updateGarageState();
     const counter = this.counter as HTMLElement;
     counter.innerText = String(state.allData.carsCount);
-  }
-
-  public async createCar(name: string, color: string) {
-    const car: CarInterface = {
-      color: color,
-      name: name,
-    };
-    await apiService.createCar(car);
   }
 }
 
