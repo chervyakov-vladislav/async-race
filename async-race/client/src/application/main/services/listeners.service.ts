@@ -5,6 +5,7 @@ import { CarItem } from '../components/garage/cars-list/car-item/car-item';
 import { CarInterface } from '../../shared/models/response-data';
 import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
+import { animationService } from './animation.service';
 
 class GarageListenersService {
   public updateTextInput: HTMLInputElement | null;
@@ -86,6 +87,25 @@ class GarageListenersService {
       colorInput.value = carData.color;
       button.disabled = false;
       state.allData.updateID = carData.id as number;
+    });
+
+    carItem.play.node.addEventListener('click', async () => {
+      (carItem.play.node as HTMLButtonElement).disabled = true;
+      (carItem.pause.node as HTMLButtonElement).disabled = false;
+
+      const data = await apiService.startEngine(carData.id as number);
+      animationService.animation(carItem.icon.node, data.res);
+
+      const finishSignal = await apiService.isBroken(carData.id as number);
+      if (!finishSignal) animationService.stop();
+    });
+
+    carItem.pause.node.addEventListener('click', async () => {
+      (carItem.play.node as HTMLButtonElement).disabled = false;
+      (carItem.pause.node as HTMLButtonElement).disabled = true;
+
+      await apiService.stopEngine(carData.id as number);
+      animationService.reset(carItem.icon.node.firstChild as HTMLElement);
     });
   }
 

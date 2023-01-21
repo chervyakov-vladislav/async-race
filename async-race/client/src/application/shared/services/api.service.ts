@@ -1,4 +1,4 @@
-import { CarInterface } from '../models/response-data';
+import { CarInterface, EngineData } from '../models/response-data';
 
 class ApiService {
   private baseUrl: string;
@@ -65,6 +65,25 @@ class ApiService {
       },
       body: JSON.stringify(car),
     });
+  }
+
+  public async startEngine(id: number): Promise<{ status: number; res: EngineData }> {
+    const data = await fetch(`${this.engine}?id=${id}&status=started`, { method: 'PATCH' });
+    const res: EngineData = await data.json();
+    return {
+      status: data.status,
+      res: res,
+    };
+  }
+
+  public async stopEngine(id: number): Promise<number> {
+    const data = await fetch(`${this.engine}?id=${id}&status=stopped`, { method: 'PATCH' });
+    return data.status;
+  }
+
+  public async isBroken(id: number): Promise<boolean> {
+    const data = await fetch(`${this.engine}?id=${id}&status=drive`, { method: 'PATCH' });
+    return data.status === 200;
   }
 }
 

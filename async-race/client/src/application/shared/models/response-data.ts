@@ -3,3 +3,8 @@ export interface CarInterface {
   name: string;
   color: string;
 }
+
+export interface EngineData {
+  distance: number;
+  velocity: number;
+}

@@ -7,7 +7,7 @@ import { SVG } from '../../../../../shared/components/svg-icons';
 import { listeners } from '../../../../services/listeners.service';
 
 export class CarItem extends DOMElement {
-  private icon: CarIcon;
+  public icon: CarIcon;
 
   private row: DOMElement;
 
