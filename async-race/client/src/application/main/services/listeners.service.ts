@@ -6,7 +6,7 @@ import { CarInterface } from '../../shared/models/response-data';
 import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
 import { animationService } from './animation.service';
-import { ResultsInterface } from '../../shared/models/state';
+import { winnerService } from './winner.service';
 
 class GarageListenersService {
   public updateTextInput: HTMLInputElement | null;
@@ -81,20 +81,12 @@ class GarageListenersService {
         return apiService.startEngine(carData.id as number);
       });
 
-      const timeResults: ResultsInterface[] = [];
       Promise.all(carItemPromisesArr).then((res) => {
         res.forEach(async (data, index) => {
-          const animationID = await animationService.animation(this.carItemArr[index].icon.node, data.res);
           const carID = (state.allData.cars as CarInterface[])[index].id as number;
-
-          console.log((state.allData.cars as CarInterface[])[index].name, ' Навание машинки');
-          console.log(animationID, ' id анимации');
-
+          const animationID = await animationService.animation(this.carItemArr[index].icon.node, data.res, carID);
+          state.setTime(new Date().getTime());
           state.setAnimationID(carID, animationID);
-          timeResults.push({
-            time: Math.floor(data.res.distance / data.res.velocity),
-            broken: false,
-          });
         });
       });
 
@@ -108,13 +100,12 @@ class GarageListenersService {
           const animationID = state.getAnimationID(carID);
 
           await animationService.stop(animationID);
-          console.log(carData.name, ' сломалась');
-          console.log(animationID, ' id остановленной машины');
         }
+
         if (finishSignal.status === 200 && !finishFlag) {
           finishFlag = 1;
-          // console.log(carData.name, ' wins');
-          // console.log(timeResults[index]);
+          const carID = parseInt(finishSignal.url.split('id=')[1]);
+          winnerService.win(carID);
         }
       });
     });
@@ -129,8 +120,9 @@ class GarageListenersService {
         (item.pause.node as HTMLButtonElement).disabled = true;
 
         const carData = (state.allData.cars as CarInterface[])[index];
-        await apiService.stopEngine(carData.id as number);
-        await animationService.reset(item.icon.node.firstChild as HTMLElement);
+        const carID = carData.id as number;
+        await apiService.stopEngine(carID);
+        await animationService.reset(carID, item.icon.node.firstChild as HTMLElement);
       });
     });
   }
@@ -162,18 +154,21 @@ class GarageListenersService {
       (carItem.pause.node as HTMLButtonElement).disabled = false;
 
       const data = await apiService.startEngine(carData.id as number);
-      animationService.animation(carItem.icon.node, data.res);
+      animationService.animation(carItem.icon.node, data.res, carData.id as number);
 
       const finishSignal = await apiService.isBroken(carData.id as number);
-      // if (!finishSignal) animationService.stop();
+      if (finishSignal.status === 500) {
+        const animationID = state.getAnimationID(carData.id as number);
+        animationService.stop(animationID);
+      }
     });
 
     carItem.pause.node.addEventListener('click', async () => {
       (carItem.play.node as HTMLButtonElement).disabled = false;
       (carItem.pause.node as HTMLButtonElement).disabled = true;
-
-      await apiService.stopEngine(carData.id as number);
-      animationService.reset(carItem.icon.node.firstChild as HTMLElement);
+      const carID = carData.id as number;
+      await apiService.stopEngine(carID);
+      animationService.reset(carID, carItem.icon.node.firstChild as HTMLElement);
     });
   }
 

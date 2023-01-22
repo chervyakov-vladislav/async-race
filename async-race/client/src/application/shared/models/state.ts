@@ -10,6 +10,7 @@ export interface StateInterface {
   sortOrder: null;
   updateID: number;
   animation: Record<number, number>;
+  time: number;
 }
 
 export interface ResultsInterface {

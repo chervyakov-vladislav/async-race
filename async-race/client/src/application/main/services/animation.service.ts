@@ -1,4 +1,5 @@
 import { EngineData } from '../../shared/models/response-data';
+import { state } from '../../shared/services/state';
 
 class AnimationService {
   private animationId: number;
@@ -7,7 +8,7 @@ class AnimationService {
     this.animationId = 0;
   }
 
-  public async animation(iconContainer: HTMLElement, data: EngineData) {
+  public async animation(iconContainer: HTMLElement, data: EngineData, carID: number) {
     const duration = Math.floor(data.distance / data.velocity);
     const icon = iconContainer.firstChild as HTMLElement;
     const distance = iconContainer.getBoundingClientRect().width - icon.getBoundingClientRect().width - 20;
@@ -22,6 +23,8 @@ class AnimationService {
       if (currWidth < 1) {
         this.animationId = window.requestAnimationFrame(animate);
       }
+
+      state.setAnimationID(carID, this.animationId);
     };
 
     this.animationId = window.requestAnimationFrame(animate);
@@ -30,11 +33,11 @@ class AnimationService {
 
   public async stop(id: number) {
     cancelAnimationFrame(id);
-    console.log({ id }, ' в стопе');
   }
 
-  public async reset(icon: HTMLElement) {
-    cancelAnimationFrame(this.animationId);
+  public async reset(id: number, icon: HTMLElement) {
+    const animationID = state.getAnimationID(id);
+    cancelAnimationFrame(animationID);
     icon.style.left = '0';
   }
 }

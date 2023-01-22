@@ -15,6 +15,7 @@ class State {
       sortOrder: null,
       updateID: 0,
       animation: {},
+      time: 0,
     };
   }
 
@@ -30,6 +31,14 @@ class State {
 
   public setAnimationID(id: number, animationID: number) {
     this.allData.animation[id] = animationID;
+  }
+
+  public getTime() {
+    return this.allData.time;
+  }
+
+  public setTime(time: number) {
+    this.allData.time = time;
   }
 }
 
