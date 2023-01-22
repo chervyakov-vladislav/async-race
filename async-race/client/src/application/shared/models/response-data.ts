@@ -8,3 +8,9 @@ export interface EngineData {
   distance: number;
   velocity: number;
 }
+
+export interface WinnerInterface {
+  id: number;
+  time: number;
+  wins: number;
+}

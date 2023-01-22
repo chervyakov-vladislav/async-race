@@ -1,4 +1,4 @@
-import { CarInterface, EngineData } from '../models/response-data';
+import { CarInterface, EngineData, WinnerInterface } from '../models/response-data';
 
 class ApiService {
   private baseUrl: string;
@@ -84,6 +84,59 @@ class ApiService {
   public async isBroken(id: number) {
     const data = await fetch(`${this.engine}?id=${id}&status=drive`, { method: 'PATCH' });
     return data;
+  }
+
+  public async getAllWinners(
+    page: number,
+    sort = 'time',
+    order = 'ASC',
+    limit = 10
+  ): Promise<{ result: WinnerInterface[]; totalCount: string }> {
+    const data = await fetch(`${this.winners}?_page=${page}&_limit=${limit}&_sort=${sort}&_order=${order}`);
+    const res: WinnerInterface[] = await data.json();
+
+    return {
+      result: res,
+      totalCount: data.headers.get('X-Total-Count') || '0',
+    };
+  }
+
+  public async getWinner(winnerId: number): Promise<{ status: number; result: WinnerInterface }> {
+    const data = await fetch(`${this.winners}/${winnerId}`);
+    const res: WinnerInterface = await data.json();
+
+    return {
+      status: data.status,
+      result: res,
+    };
+  }
+
+  public async createWinner(carData: WinnerInterface): Promise<number> {
+    const data = await fetch(`${this.winners}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(carData),
+    });
+
+    return data.status;
+  }
+
+  public async updateWinner(carData: WinnerInterface): Promise<void> {
+    await fetch(`${this.winners}/${carData.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(carData),
+    });
+  }
+
+  public async deleteWinner(carID: number): Promise<void> {
+    await fetch(`${this.winners}/${carID}`, {
+      method: 'DELETE',
+    });
   }
 }
 
