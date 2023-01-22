@@ -70,20 +70,45 @@ class GarageListenersService {
     });
 
     options.raceButton.node.addEventListener('click', async () => {
-      this.carItemArr.forEach(async (item, index) => {
+      (options.raceButton.node as HTMLButtonElement).disabled = true;
+
+      const carItemPromisesArr = this.carItemArr.map(async (item, index) => {
         (item.play.node as HTMLButtonElement).disabled = true;
         (item.pause.node as HTMLButtonElement).disabled = false;
 
         const carData = (state.allData.cars as CarInterface[])[index];
-        const data = await apiService.startEngine(carData.id as number);
-        animationService.animation(item.icon.node, data.res);
+        return apiService.startEngine(carData.id as number);
+      });
 
+      const timeResults: number[] = [];
+      Promise.all(carItemPromisesArr).then((res) => {
+        res.forEach((data, index) => {
+          animationService.animation(this.carItemArr[index].icon.node, data.res);
+          timeResults.push(Math.floor(data.res.distance / data.res.velocity));
+        });
+      });
+
+      let finishFlag = 0;
+      this.carItemArr.forEach(async (_item, index) => {
+        const carData = (state.allData.cars as CarInterface[])[index];
         const finishSignal = await apiService.isBroken(carData.id as number);
-        if (!finishSignal) await animationService.stop();
+        if (!finishSignal) {
+          await animationService.stop();
+          // console.log(carData.name, ' broken');
+        }
+        if (finishSignal && !finishFlag) {
+          finishFlag = 1;
+          console.log(carData.name, ' wins');
+          console.log(timeResults[index]);
+        }
       });
     });
 
     options.resetButton.node.addEventListener('click', async () => {
+      if (state.allData.carsCount > 2) {
+        (options.raceButton.node as HTMLButtonElement).disabled = false;
+      }
+
       this.carItemArr.forEach(async (item, index) => {
         (item.play.node as HTMLButtonElement).disabled = false;
         (item.pause.node as HTMLButtonElement).disabled = true;

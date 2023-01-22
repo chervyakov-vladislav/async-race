@@ -12,12 +12,14 @@ class GarageListService {
 
   public counter: HTMLElement | null;
 
+  public raceButton: HTMLElement | null;
+
   constructor() {
     this.container = null;
     this.carItem = null;
 
     this.counter = null;
-
+    this.raceButton = null;
     this.createCarButton = null;
   }
 
@@ -32,6 +34,11 @@ class GarageListService {
     await state.updateGarageState();
     const counter = this.counter as HTMLElement;
     counter.innerText = String(state.allData.carsCount);
+    if (state.allData.carsCount < 2) {
+      (this.raceButton as HTMLButtonElement).disabled = true;
+    } else {
+      (this.raceButton as HTMLButtonElement).disabled = false;
+    }
   }
 }
 
