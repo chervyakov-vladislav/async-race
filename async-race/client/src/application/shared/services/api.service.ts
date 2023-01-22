@@ -81,9 +81,9 @@ class ApiService {
     return data.status;
   }
 
-  public async isBroken(id: number): Promise<boolean> {
+  public async isBroken(id: number) {
     const data = await fetch(`${this.engine}?id=${id}&status=drive`, { method: 'PATCH' });
-    return data.status === 200;
+    return data;
   }
 }
 

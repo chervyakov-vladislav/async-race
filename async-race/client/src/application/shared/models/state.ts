@@ -9,4 +9,10 @@ export interface StateInterface {
   sortBy: null;
   sortOrder: null;
   updateID: number;
+  animation: Record<number, number>;
+}
+
+export interface ResultsInterface {
+  time: number;
+  broken: boolean;
 }

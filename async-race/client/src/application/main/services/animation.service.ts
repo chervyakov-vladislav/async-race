@@ -12,6 +12,7 @@ class AnimationService {
     const icon = iconContainer.firstChild as HTMLElement;
     const distance = iconContainer.getBoundingClientRect().width - icon.getBoundingClientRect().width - 20;
     const start = performance.now();
+    const result = this.animationId;
 
     const animate = (timestamp: number) => {
       const currWidth = (timestamp - start) / duration;
@@ -24,10 +25,12 @@ class AnimationService {
     };
 
     this.animationId = window.requestAnimationFrame(animate);
+    return result;
   }
 
-  public async stop() {
-    cancelAnimationFrame(this.animationId);
+  public async stop(id: number) {
+    cancelAnimationFrame(id);
+    console.log({ id }, ' в стопе');
   }
 
   public async reset(icon: HTMLElement) {

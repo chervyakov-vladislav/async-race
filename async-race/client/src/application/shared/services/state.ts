@@ -14,6 +14,7 @@ class State {
       sortBy: null,
       sortOrder: null,
       updateID: 0,
+      animation: {},
     };
   }
 
@@ -21,6 +22,14 @@ class State {
     const res = await apiService.getCars();
     this.allData.cars = res?.cars;
     this.allData.carsCount = Number(res?.count);
+  }
+
+  public getAnimationID(id: number) {
+    return this.allData.animation[id];
+  }
+
+  public setAnimationID(id: number, animationID: number) {
+    this.allData.animation[id] = animationID;
   }
 }
 

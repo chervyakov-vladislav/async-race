@@ -6,6 +6,7 @@ import { CarInterface } from '../../shared/models/response-data';
 import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
 import { animationService } from './animation.service';
+import { ResultsInterface } from '../../shared/models/state';
 
 class GarageListenersService {
   public updateTextInput: HTMLInputElement | null;
@@ -80,11 +81,20 @@ class GarageListenersService {
         return apiService.startEngine(carData.id as number);
       });
 
-      const timeResults: number[] = [];
+      const timeResults: ResultsInterface[] = [];
       Promise.all(carItemPromisesArr).then((res) => {
-        res.forEach((data, index) => {
-          animationService.animation(this.carItemArr[index].icon.node, data.res);
-          timeResults.push(Math.floor(data.res.distance / data.res.velocity));
+        res.forEach(async (data, index) => {
+          const animationID = await animationService.animation(this.carItemArr[index].icon.node, data.res);
+          const carID = (state.allData.cars as CarInterface[])[index].id as number;
+
+          console.log((state.allData.cars as CarInterface[])[index].name, ' Навание машинки');
+          console.log(animationID, ' id анимации');
+
+          state.setAnimationID(carID, animationID);
+          timeResults.push({
+            time: Math.floor(data.res.distance / data.res.velocity),
+            broken: false,
+          });
         });
       });
 
@@ -92,14 +102,19 @@ class GarageListenersService {
       this.carItemArr.forEach(async (_item, index) => {
         const carData = (state.allData.cars as CarInterface[])[index];
         const finishSignal = await apiService.isBroken(carData.id as number);
-        if (!finishSignal) {
-          await animationService.stop();
-          // console.log(carData.name, ' broken');
+
+        if (finishSignal.status === 500) {
+          const carID = parseInt(finishSignal.url.split('id=')[1]);
+          const animationID = state.getAnimationID(carID);
+
+          await animationService.stop(animationID);
+          console.log(carData.name, ' сломалась');
+          console.log(animationID, ' id остановленной машины');
         }
-        if (finishSignal && !finishFlag) {
+        if (finishSignal.status === 200 && !finishFlag) {
           finishFlag = 1;
-          console.log(carData.name, ' wins');
-          console.log(timeResults[index]);
+          // console.log(carData.name, ' wins');
+          // console.log(timeResults[index]);
         }
       });
     });
@@ -150,7 +165,7 @@ class GarageListenersService {
       animationService.animation(carItem.icon.node, data.res);
 
       const finishSignal = await apiService.isBroken(carData.id as number);
-      if (!finishSignal) animationService.stop();
+      // if (!finishSignal) animationService.stop();
     });
 
     carItem.pause.node.addEventListener('click', async () => {
