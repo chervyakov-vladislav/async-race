@@ -1,3 +1,4 @@
+import { modalService } from '../../core/services/modal.service';
 import { CarInterface } from '../../shared/models/response-data';
 import { state } from '../../shared/services/state';
 
@@ -8,8 +9,8 @@ class WinnerService {
 
     const startTime = state.getTime();
     const finishTime = (new Date().getTime() - startTime) / 1000;
-    console.log('победила ', winner.name);
-    console.log('время ', finishTime);
+    const modalText = `${winner.name} wins, ${finishTime} sec`;
+    setTimeout(() => modalService.appendModal(modalText), 1500);
   }
 }
 
