@@ -68,6 +68,10 @@ class GarageListenersService {
       await garageListService.renderCars();
       (options.updateButton.node as HTMLButtonElement).disabled = true;
       (this.updateTextInput as HTMLInputElement).value = '';
+
+      const currentWinners = await apiService.getAllWinners(state.allData.winnersPage);
+      const isWinner = currentWinners.result.filter((currentWinner) => currentWinner.id === id);
+      if (isWinner.length) winnerService.renderWinners();
     });
 
     options.raceButton.node.addEventListener('click', async () => {
@@ -111,7 +115,7 @@ class GarageListenersService {
     });
 
     options.resetButton.node.addEventListener('click', async () => {
-      if (state.allData.carsCount > 2) {
+      if (state.allData.carsCount > 1) {
         (options.raceButton.node as HTMLButtonElement).disabled = false;
       }
 
@@ -134,9 +138,16 @@ class GarageListenersService {
       await garageListService.renderCars();
       garageListService.updateCounter();
       const textInput = this.updateTextInput as HTMLInputElement;
-      const button = this.updateButton as HTMLButtonElement;
+      const updateButton = this.updateButton as HTMLButtonElement;
       textInput.value = '';
-      button.disabled = true;
+      updateButton.disabled = true;
+
+      const currentWinners = await apiService.getAllWinners(state.allData.winnersPage);
+      const isWinner = currentWinners.result.filter((currentWinner) => currentWinner.id === id);
+      if (isWinner.length) {
+        await apiService.deleteWinner(id);
+        winnerService.renderWinners();
+      }
     });
 
     carItem.select.node.addEventListener('click', () => {

@@ -1,0 +1,11 @@
+.winner-icon {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+    &__svg {
+      width: 50px;
+      height: 35px;
+    }
+}

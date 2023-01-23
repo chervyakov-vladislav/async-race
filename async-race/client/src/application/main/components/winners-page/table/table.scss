@@ -1,0 +1,12 @@
+.winners-table {
+  display: flex;
+  flex-direction: column;
+  
+
+  &__title-row{
+    display: grid;
+    grid-template-columns: 30px 80px 170px 70px 100px;
+    justify-items: center;
+    margin-bottom: 10px;
+  }
+}
