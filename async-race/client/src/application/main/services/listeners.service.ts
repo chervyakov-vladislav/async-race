@@ -92,7 +92,7 @@ class GarageListenersService {
         return apiService.startEngine(carData.id as number);
       });
 
-      Promise.all(carItemPromisesArr).then((res) => {
+      await Promise.all(carItemPromisesArr).then((res) => {
         res.forEach(async (data, index) => {
           const carID = (state.allData.cars as CarInterface[])[index].id as number;
           const animationID = await animationService.animation(this.carItemArr[index].icon.node, data.res, carID);
@@ -106,7 +106,7 @@ class GarageListenersService {
         const carData = (state.allData.cars as CarInterface[])[index];
         const finishSignal = await apiService.isBroken(carData.id as number);
 
-        if (finishSignal.status === 500) {
+        if (finishSignal.status === 500 || finishSignal.status === 404) {
           const carID = parseInt(finishSignal.url.split('id=')[1]);
           const animationID = state.getAnimationID(carID);
 
@@ -155,7 +155,6 @@ class GarageListenersService {
         await apiService.deleteWinner(id);
         winnerService.renderWinners();
       }
-      
 
       paginationService.removeToPrevPage();
       paginationService.checkGarageButtonStyles();

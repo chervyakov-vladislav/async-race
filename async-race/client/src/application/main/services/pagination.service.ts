@@ -60,7 +60,6 @@ class PaginationService {
       (garageListService.raceButton as HTMLButtonElement).disabled = false;
       garageListService.renderCars();
     }
-    console.log(carsOnPage);
   }
 }
 
