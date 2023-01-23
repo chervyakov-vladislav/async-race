@@ -1,6 +1,7 @@
 import './titles.scss';
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
 import { winnerService } from '../../../services/winner.service';
+import { winnersPaginationService } from '../../../services/winner-pagination.service';
 
 export class WinnersTitles extends DOMElement {
   private pageCount: DOMElement;
@@ -19,5 +20,6 @@ export class WinnersTitles extends DOMElement {
     });
 
     winnerService.winnerCounter = this.node;
+    winnersPaginationService.counter = this.pageCount.node;
   }
 }

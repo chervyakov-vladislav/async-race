@@ -8,6 +8,7 @@ class PaginationService {
 
   public counter: HTMLElement | null;
 
+
   constructor() {
     this.prevGarageButton = null;
     this.nextGarageButton = null;
@@ -17,12 +18,14 @@ class PaginationService {
   public nextGaragePage() {
     const currPage = state.getCarsPage() + 1;
     state.setCarsPage(currPage);
+    (garageListService.raceButton as HTMLButtonElement).disabled = false;
     garageListService.renderCars();
   }
 
   public prevGaragePage() {
     const currPage = state.getCarsPage() - 1;
     state.setCarsPage(currPage);
+    (garageListService.raceButton as HTMLButtonElement).disabled = false;
     garageListService.renderCars();
   }
 
@@ -44,10 +47,6 @@ class PaginationService {
     } else {
       next.disabled = false;
     }
-
-    // if (state.allData.carsCount < 8) {
-    //   (paginationService.nextGarageButton as HTMLButtonElement).disabled = true;
-    // } else (paginationService.nextGarageButton as HTMLButtonElement).disabled = false;
 
     (this.counter as HTMLElement).innerText = `Page: ${currPage}`;
   }

@@ -2,6 +2,7 @@ import { CarInterface } from '../../shared/models/response-data';
 import { state } from '../../shared/services/state';
 import { CarItem } from '../components/garage/cars-list/car-item/car-item';
 import { listeners } from './listeners.service';
+import { paginationService } from './pagination.service';
 
 class GarageListService {
   public container: HTMLElement | null;
@@ -26,6 +27,7 @@ class GarageListService {
   public async renderCars() {
     const currPage = state.getCarsPage();
     await state.updateGarageState(currPage);
+    paginationService.checkGarageButtonStyles();
 
     const container = this.container as HTMLElement;
     container.innerHTML = '';

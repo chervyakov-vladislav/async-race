@@ -64,6 +64,14 @@ class State {
   public setCarsPage(page: number) {
     this.allData.carsPage = page;
   }
+
+  public getWinnersPage(): number {
+    return this.allData.winnersPage;
+  }
+
+  public setWinnersPage(page: number) {
+    this.allData.winnersPage = page;
+  }
 }
 
 const state = new State();

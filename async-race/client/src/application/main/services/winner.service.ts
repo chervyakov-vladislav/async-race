@@ -3,6 +3,7 @@ import { CarInterface, WinnerInterface } from '../../shared/models/response-data
 import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
 import { WinnerItem } from '../components/winners-page/table/winner/winner';
+import { winnersPaginationService } from './winner-pagination.service';
 
 class WinnerService {
   public renderContainer: HTMLElement | null;
@@ -59,11 +60,12 @@ class WinnerService {
 
   public async renderWinners() {
     const container = this.renderContainer as HTMLElement;
-    const page = state.allData.winnersPage;
+    const page = state.getWinnersPage();
     const order = state.getSortOrder();
     const sortType = state.getSortType();
 
     const data = await apiService.getAllWinners(page, sortType, order);
+    state.allData.winnersCount = Number(data.totalCount);
 
     container.innerHTML = '';
     data.result.forEach(async (winnerData, index) => {
@@ -72,7 +74,8 @@ class WinnerService {
     });
 
     const counter = this.winnerCounter as HTMLElement;
-    counter.innerText = `Winners - ${data.result.length}`;
+    counter.innerText = `Winners - ${data.totalCount}`;
+    winnersPaginationService.checkGarageButtonStyles();
   }
 
   public async sortWin() {

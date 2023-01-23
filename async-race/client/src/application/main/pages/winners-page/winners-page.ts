@@ -4,6 +4,7 @@ import { DOMElement } from '../../../shared/components/base-elements/dom-element
 import { Page } from '../../../shared/components/page';
 import { WinnersTitles } from '../../components/winners-page/titles/titles';
 import { WinnersTable } from '../../components/winners-page/table/table';
+import { WinnersPagination } from '../../components/winners-page/pagination/pagintion';
 
 export class WinnersPage extends Page {
   private titlesContainer: DOMElement;
@@ -15,6 +16,8 @@ export class WinnersPage extends Page {
   private title: WinnersTitles;
 
   private table: WinnersTable;
+
+  private pagination: WinnersPagination;
 
   constructor(id: string) {
     super(id);
@@ -36,5 +39,6 @@ export class WinnersPage extends Page {
 
     this.title = new WinnersTitles(this.titlesContainer.node);
     this.table = new WinnersTable(this.tableContainer.node);
+    this.pagination = new WinnersPagination(this.paginationContainer.node);
   }
 }
