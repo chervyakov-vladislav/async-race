@@ -19,8 +19,8 @@ class State {
     };
   }
 
-  public async updateGarageState() {
-    const res = await apiService.getCars();
+  public async updateGarageState(page: number) {
+    const res = await apiService.getCars(page);
     this.allData.cars = res?.cars;
     this.allData.carsCount = Number(res?.count);
   }
@@ -55,6 +55,14 @@ class State {
 
   public setSortOrder(sortOrder: 'ASC' | 'DESC') {
     this.allData.sortOrder = sortOrder;
+  }
+
+  public getCarsPage(): number {
+    return this.allData.carsPage;
+  }
+
+  public setCarsPage(page: number) {
+    this.allData.carsPage = page;
   }
 }
 

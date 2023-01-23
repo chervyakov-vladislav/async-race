@@ -24,14 +24,17 @@ class GarageListService {
   }
 
   public async renderCars() {
-    await state.updateGarageState();
+    const currPage = state.getCarsPage();
+    await state.updateGarageState(currPage);
+
     const container = this.container as HTMLElement;
     container.innerHTML = '';
     listeners.carItemArr = (state.allData.cars as CarInterface[]).map((carData) => new CarItem(container, carData));
   }
 
   public async updateCounter() {
-    await state.updateGarageState();
+    const currPage = state.getCarsPage();
+    await state.updateGarageState(currPage);
     const counter = this.counter as HTMLElement;
     counter.innerText = String(state.allData.carsCount);
     if (state.allData.carsCount < 2) {

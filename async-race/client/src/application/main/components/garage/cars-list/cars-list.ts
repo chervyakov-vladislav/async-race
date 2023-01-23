@@ -1,6 +1,8 @@
 import './cars-list.scss';
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
 import { garageListService } from '../../../services/cars-list.service';
+import { state } from '../../../../shared/services/state';
+import { paginationService } from '../../../services/pagination.service';
 
 export class CarsList extends DOMElement {
   public listTitle: DOMElement;
@@ -16,7 +18,7 @@ export class CarsList extends DOMElement {
     this.listTitle = new DOMElement(this.node, {
       tagName: 'p',
       classList: ['car-list__title'],
-      content: `Page: ${1}`,
+      content: `Page: ${state.getCarsPage()}`,
     });
 
     this.list = new DOMElement(this.node, {
@@ -26,5 +28,6 @@ export class CarsList extends DOMElement {
 
     garageListService.container = this.list.node;
     garageListService.renderCars();
+    paginationService.counter = this.listTitle.node;
   }
 }

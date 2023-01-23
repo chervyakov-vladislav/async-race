@@ -7,6 +7,7 @@ import { apiService } from '../../shared/services/api.service';
 import { state } from '../../shared/services/state';
 import { animationService } from './animation.service';
 import { winnerService } from './winner.service';
+import { paginationService } from './pagination.service';
 
 class GarageListenersService {
   public updateTextInput: HTMLInputElement | null;
@@ -39,6 +40,8 @@ class GarageListenersService {
       await garageListService.renderCars();
       garageListService.updateCounter();
       (options.createInput.node as HTMLInputElement).value = '';
+
+      paginationService.checkGarageButtonStyles();
     });
 
     options.generateButton.node.addEventListener('click', async () => {
@@ -51,6 +54,8 @@ class GarageListenersService {
       }
       garageListService.renderCars();
       garageListService.updateCounter();
+
+      paginationService.checkGarageButtonStyles();
     });
 
     options.updateButton.node.addEventListener('click', async () => {
@@ -148,6 +153,8 @@ class GarageListenersService {
         await apiService.deleteWinner(id);
         winnerService.renderWinners();
       }
+
+      paginationService.checkGarageButtonStyles();
     });
 
     carItem.select.node.addEventListener('click', () => {
