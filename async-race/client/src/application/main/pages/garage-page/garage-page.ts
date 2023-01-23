@@ -6,6 +6,7 @@ import { Options } from '../../components/garage/options/options';
 import { Counter } from '../../components/garage/counter/counter';
 import { CarsList } from '../../components/garage/cars-list/cars-list';
 import { Pagination } from '../../components/garage/pagination/pagination';
+import { modalService } from '../../../core/services/modal.service';
 
 export class GaragePage extends Page {
   private optionsContainer: DOMElement;
@@ -44,5 +45,7 @@ export class GaragePage extends Page {
     this.counter = new Counter(this.contentContainer.node);
     this.carList = new CarsList(this.contentContainer.node);
     this.pagination = new Pagination(this.paginationContainer.node);
+
+    modalService.parantNode = this.node;
   }
 }
