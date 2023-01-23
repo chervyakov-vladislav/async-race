@@ -63,6 +63,14 @@ export class WinnersTable extends DOMElement {
       classList: ['winners-table__list'],
     });
 
+    this.winsTitle.node.addEventListener('click', () => {
+      winnerService.sortWin();
+      winnerService.renderWinners();
+    });
+    this.timeTitle.node.addEventListener('click', () => {
+      winnerService.sortTime();
+      winnerService.renderWinners();
+    });
     winnerService.renderContainer = this.winnersList.node;
     winnerService.renderWinners();
   }

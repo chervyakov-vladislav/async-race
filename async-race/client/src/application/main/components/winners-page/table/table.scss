@@ -9,4 +9,20 @@
     justify-items: center;
     margin-bottom: 10px;
   }
+
+  &__time-title {
+    transition: .3s;
+    cursor: pointer;
+    &:hover {
+      opacity: .5;
+    }
+  }
+
+  &__wins-title {
+    transition: .3s;
+    cursor: pointer;
+    &:hover {
+      opacity: .5;
+    }
+  }
 }

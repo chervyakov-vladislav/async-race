@@ -6,8 +6,8 @@ export interface StateInterface {
   carsCount: number;
   winnersPage: number;
   winnersCount: number;
-  sortBy: null;
-  sortOrder: null;
+  sortBy: 'id' | 'wins' | 'time';
+  sortOrder: 'ASC' | 'DESC';
   updateID: number;
   animation: Record<number, number>;
   time: number;

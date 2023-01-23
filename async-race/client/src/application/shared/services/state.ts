@@ -11,8 +11,8 @@ class State {
       carsCount: 0,
       winnersPage: 1,
       winnersCount: 0,
-      sortBy: null,
-      sortOrder: null,
+      sortBy: 'time',
+      sortOrder: 'ASC',
       updateID: 0,
       animation: {},
       time: 0,
@@ -39,6 +39,22 @@ class State {
 
   public setTime(time: number) {
     this.allData.time = time;
+  }
+
+  public getSortType(): 'id' | 'wins' | 'time' {
+    return this.allData.sortBy;
+  }
+
+  public setSortType(sortBy: 'id' | 'wins' | 'time') {
+    this.allData.sortBy = sortBy;
+  }
+
+  public getSortOrder(): 'ASC' | 'DESC' {
+    return this.allData.sortOrder;
+  }
+
+  public setSortOrder(sortOrder: 'ASC' | 'DESC') {
+    this.allData.sortOrder = sortOrder;
   }
 }
 

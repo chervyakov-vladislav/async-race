@@ -6,7 +6,7 @@ import { WinnerIcon } from './icon/winner-icon';
 export class WinnerItem extends DOMElement {
   private index: DOMElement;
 
-  private icon: WinnerIcon;
+  private icon: WinnerIcon | null;
 
   private name: DOMElement;
 
@@ -26,7 +26,7 @@ export class WinnerItem extends DOMElement {
       content: `${index + 1}`,
     });
 
-    this.icon = new WinnerIcon(this.node, carData.color);
+    this.icon = carData ? new WinnerIcon(this.node, carData.color) : null;
 
     this.name = new DOMElement(this.node, {
       tagName: 'p',
@@ -45,8 +45,5 @@ export class WinnerItem extends DOMElement {
       classList: ['winner-item__time'],
       content: `${winnerData.time}`,
     });
-
-    console.log(winnerData);
-    console.log(carData);
   }
 }

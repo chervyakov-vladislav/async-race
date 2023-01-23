@@ -7,8 +7,11 @@ import { WinnerItem } from '../components/winners-page/table/winner/winner';
 class WinnerService {
   public renderContainer: HTMLElement | null;
 
+  public winnerCounter: HTMLElement | null;
+
   constructor() {
     this.renderContainer = null;
+    this.winnerCounter = null;
   }
 
   public async win(id: number) {
@@ -27,14 +30,15 @@ class WinnerService {
     };
     await this.checkWinner(carData);
 
-    //рендерим новую таблицу
     this.renderWinners();
   }
 
   private async checkWinner(carData: WinnerInterface) {
-    const checkData = await apiService.getWinner(carData.id);
+    const currentWinners = await apiService.getAllWinners(state.allData.winnersPage);
+    const isOldWinner = currentWinners.result.filter((currentWinner) => currentWinner.id === carData.id);
 
-    if (checkData.status === 200) {
+    if (isOldWinner.length) {
+      const checkData = await apiService.getWinner(carData.id);
       checkData.result.wins++;
       carData.wins = checkData.result.wins;
       carData.time = checkData.result.time < carData.time ? checkData.result.time : carData.time;
@@ -47,25 +51,56 @@ class WinnerService {
 
   private async createWinner(carData: WinnerInterface) {
     await apiService.createWinner(carData);
-    console.log(carData, 'создан победитель');
   }
 
   private async updateWinner(carData: WinnerInterface) {
     await apiService.updateWinner(carData);
-    console.log(carData, 'обновлен победитель');
   }
 
   public async renderWinners() {
     const container = this.renderContainer as HTMLElement;
     const page = state.allData.winnersPage;
-    // забрать данные по сортировкам из стейта и закинуть в getAllWinners, пока тут только page
-    const data = await apiService.getAllWinners(page);
+    const order = state.getSortOrder();
+    const sortType = state.getSortType();
+
+    const data = await apiService.getAllWinners(page, sortType, order);
 
     container.innerHTML = '';
     data.result.forEach(async (winnerData, index) => {
       const carData = (await apiService.getCar(winnerData.id)) as CarInterface;
       new WinnerItem(container, winnerData, carData, index);
     });
+
+    const counter = this.winnerCounter as HTMLElement;
+    counter.innerText = `Winners - ${data.result.length}`;
+  }
+
+  public async sortWin() {
+    const currentSort = state.getSortType();
+    const currentOrder = state.getSortOrder();
+
+    if (currentSort !== 'wins') {
+      state.setSortType('wins');
+      state.setSortOrder('DESC');
+    } else {
+      if (currentOrder === 'ASC') {
+        state.setSortOrder('DESC');
+      } else state.setSortOrder('ASC');
+    }
+  }
+
+  public async sortTime() {
+    const currentSort = state.getSortType();
+    const currentOrder = state.getSortOrder();
+
+    if (currentSort !== 'time') {
+      state.setSortType('time');
+      state.setSortOrder('ASC');
+    } else {
+      if (currentOrder === 'ASC') {
+        state.setSortOrder('DESC');
+      } else state.setSortOrder('ASC');
+    }
   }
 }
 

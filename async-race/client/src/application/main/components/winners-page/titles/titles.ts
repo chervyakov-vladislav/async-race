@@ -1,5 +1,6 @@
 import './titles.scss';
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
+import { winnerService } from '../../../services/winner.service';
 
 export class WinnersTitles extends DOMElement {
   private pageCount: DOMElement;
@@ -16,5 +17,7 @@ export class WinnersTitles extends DOMElement {
       classList: ['winners-page__page-count'],
       content: 'Page - 1',
     });
+
+    winnerService.winnerCounter = this.node;
   }
 }
