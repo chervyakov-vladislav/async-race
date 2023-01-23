@@ -16,6 +16,7 @@ class State {
       updateID: 0,
       animation: {},
       time: 0,
+      distance: 0,
     };
   }
 

@@ -11,7 +11,7 @@ class AnimationService {
   public async animation(iconContainer: HTMLElement, data: EngineData, carID: number) {
     const duration = Math.floor(data.distance / data.velocity);
     const icon = iconContainer.firstChild as HTMLElement;
-    const distance = iconContainer.getBoundingClientRect().width - icon.getBoundingClientRect().width - 20;
+    const distance = state.allData.distance;
     const start = performance.now();
     const result = this.animationId;
 
@@ -39,6 +39,12 @@ class AnimationService {
     const animationID = state.getAnimationID(id);
     cancelAnimationFrame(animationID);
     icon.style.left = '0';
+  }
+
+  public async setDistance(iconContainer: HTMLElement) {
+    const icon = iconContainer.firstChild as HTMLElement;
+    const distance = iconContainer.getBoundingClientRect().width - icon.getBoundingClientRect().width - 20;
+    state.allData.distance = distance;
   }
 }
 

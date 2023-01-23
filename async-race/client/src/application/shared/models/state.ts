@@ -11,6 +11,7 @@ export interface StateInterface {
   updateID: number;
   animation: Record<number, number>;
   time: number;
+  distance: number;
 }
 
 export interface ResultsInterface {

@@ -86,6 +86,8 @@ class GarageListenersService {
         (item.play.node as HTMLButtonElement).disabled = true;
         (item.pause.node as HTMLButtonElement).disabled = false;
 
+        animationService.setDistance(this.carItemArr[index].icon.node);
+
         const carData = (state.allData.cars as CarInterface[])[index];
         return apiService.startEngine(carData.id as number);
       });
@@ -153,7 +155,9 @@ class GarageListenersService {
         await apiService.deleteWinner(id);
         winnerService.renderWinners();
       }
+      
 
+      paginationService.removeToPrevPage();
       paginationService.checkGarageButtonStyles();
     });
 

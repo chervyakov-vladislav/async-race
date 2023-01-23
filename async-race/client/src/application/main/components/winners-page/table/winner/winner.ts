@@ -2,6 +2,7 @@ import './winner.scss';
 import { DOMElement } from '../../../../../shared/components/base-elements/dom-element';
 import { CarInterface, WinnerInterface } from '../../../../../shared/models/response-data';
 import { WinnerIcon } from './icon/winner-icon';
+import { state } from '../../../../../shared/services/state';
 
 export class WinnerItem extends DOMElement {
   private index: DOMElement;
@@ -23,7 +24,7 @@ export class WinnerItem extends DOMElement {
     this.index = new DOMElement(this.node, {
       tagName: 'p',
       classList: ['winner-item__count'],
-      content: `${index + 1}`,
+      content: `${this.checkCurrentIndex(index + 1)}`,
     });
 
     this.icon = carData ? new WinnerIcon(this.node, carData.color) : null;
@@ -45,5 +46,10 @@ export class WinnerItem extends DOMElement {
       classList: ['winner-item__time'],
       content: `${winnerData.time}`,
     });
+  }
+
+  private checkCurrentIndex(index: number) {
+    const currentPage = state.getWinnersPage();
+    return (currentPage - 1) * 10 + index;
   }
 }
