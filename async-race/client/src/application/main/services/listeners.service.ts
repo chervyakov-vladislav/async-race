@@ -95,21 +95,19 @@ class GarageListenersService {
         });
       });
 
-      let finishFlag = 0;
+      let isFirst = true;
       this.carItemArr.forEach(async (_item, index) => {
         const carData = (state.allData.cars as CarInterface[])[index];
         const finishSignal = await apiService.isBroken(carData.id as number);
+        const carID = parseInt(finishSignal.url.split('id=')[1]);
 
         if (finishSignal.status === 500 || finishSignal.status === 404) {
-          const carID = parseInt(finishSignal.url.split('id=')[1]);
           const animationID = state.getAnimationID(carID);
-
           await animationService.stop(animationID);
         }
 
-        if (finishSignal.status === 200 && !finishFlag) {
-          finishFlag = 1;
-          const carID = parseInt(finishSignal.url.split('id=')[1]);
+        if (finishSignal.status === 200 && isFirst) {
+          isFirst = false;
           winnerService.win(carID);
         }
       });
