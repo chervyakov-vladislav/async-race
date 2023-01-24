@@ -3,17 +3,11 @@ import { state } from '../../shared/services/state';
 import { garageListService } from './cars-list.service';
 
 class PaginationService {
-  public prevGarageButton: HTMLButtonElement | null;
+  public prevGarageButton: HTMLButtonElement | null = null;
 
-  public nextGarageButton: HTMLButtonElement | null;
+  public nextGarageButton: HTMLButtonElement | null = null;
 
-  public counter: HTMLElement | null;
-
-  constructor() {
-    this.prevGarageButton = null;
-    this.nextGarageButton = null;
-    this.counter = null;
-  }
+  public counter: HTMLElement | null = null;
 
   public nextGaragePage() {
     const currPage = state.getCarsPage() + 1;
@@ -36,17 +30,9 @@ class PaginationService {
     const itemsPerPage = 7;
     const maxPage = Math.ceil(state.allData.carsCount / itemsPerPage);
 
-    if (currPage === 1) {
-      prev.disabled = true;
-    } else {
-      prev.disabled = false;
-    }
+    prev.disabled = currPage === 1 ? true : false;
 
-    if (currPage === maxPage || state.allData.carsCount < 8) {
-      next.disabled = true;
-    } else {
-      next.disabled = false;
-    }
+    next.disabled = currPage === maxPage || state.allData.carsCount < 8 ? true : false;
 
     (this.counter as HTMLElement).innerText = `Page: ${currPage}`;
   }

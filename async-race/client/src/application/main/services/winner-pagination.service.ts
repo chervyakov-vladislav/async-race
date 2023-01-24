@@ -2,17 +2,11 @@ import { state } from '../../shared/services/state';
 import { winnerService } from './winner.service';
 
 class WinnersPaginationService {
-  public prevWinnersButton: HTMLButtonElement | null;
+  public prevWinnersButton: HTMLButtonElement | null = null;
 
-  public nextWinnersButton: HTMLButtonElement | null;
+  public nextWinnersButton: HTMLButtonElement | null = null;
 
-  public counter: HTMLElement | null;
-
-  constructor() {
-    this.prevWinnersButton = null;
-    this.nextWinnersButton = null;
-    this.counter = null;
-  }
+  public counter: HTMLElement | null = null;
 
   public nextGaragePage() {
     const currPage = state.getWinnersPage() + 1;

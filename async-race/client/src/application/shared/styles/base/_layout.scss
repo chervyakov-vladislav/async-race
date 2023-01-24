@@ -24,22 +24,11 @@ body {
   height: 100vh;
 }
 
-//если закомменчено, значит вынесено в другой блок для наглядной реализации функционала
-// .wrapper {
-//     position: relative;
-//     width: 100%;
-//     // min-width: rem(940px) + rem(20px);
-//     min-height: 100%;
-//     overflow: hidden;
-// }
-
 .container {
 		width: 98%;
-    // max-width: 1200px;
     height: 100%;
     margin: 0 auto;
     display: flex;
-    // flex-direction: column;
 		position: relative;
     padding: 0 1%;
   }

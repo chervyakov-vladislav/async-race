@@ -11,20 +11,13 @@ import { winnerService } from './winner.service';
 import { paginationService } from './pagination.service';
 
 class GarageListenersService {
-  public updateTextInput: HTMLInputElement | null;
+  public updateTextInput: HTMLInputElement | null = null;
 
-  public updateColorInput: HTMLInputElement | null;
+  public updateColorInput: HTMLInputElement | null = null;
 
-  public updateButton: HTMLButtonElement | null;
+  public updateButton: HTMLButtonElement | null = null;
 
-  public carItemArr: CarItem[];
-
-  constructor() {
-    this.updateTextInput = null;
-    this.updateColorInput = null;
-    this.updateButton = null;
-    this.carItemArr = [];
-  }
+  public carItemArr: CarItem[] = [];
 
   public appendOptionsListeners(options: Options) {
     options.createButton.node.addEventListener('click', async () => {

@@ -6,14 +6,9 @@ import { WinnerItem } from '../components/winners-page/table/winner/winner';
 import { winnersPaginationService } from './winner-pagination.service';
 
 class WinnerService {
-  public renderContainer: HTMLElement | null;
+  public renderContainer: HTMLElement | null = null;
 
-  public winnerCounter: HTMLElement | null;
-
-  constructor() {
-    this.renderContainer = null;
-    this.winnerCounter = null;
-  }
+  public winnerCounter: HTMLElement | null = null;
 
   public async win(id: number) {
     const cars = state.allData.cars;
