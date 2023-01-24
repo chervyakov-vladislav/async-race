@@ -29,6 +29,7 @@
           "endOfLine": "auto",
           "tabWidth": 2
         }
-      ]
+      ],
+      "@typescript-eslint/no-inferrable-types": "off"
     }
 }

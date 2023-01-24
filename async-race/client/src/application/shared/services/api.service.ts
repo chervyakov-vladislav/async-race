@@ -1,20 +1,13 @@
 import { CarInterface, EngineData, WinnerInterface } from '../models/response-data';
 
 class ApiService {
-  private baseUrl: string;
+  private baseUrl: string = 'http://localhost:3000';
 
-  private garage: string;
+  private garage: string = `${this.baseUrl}/garage`;
 
-  private engine: string;
+  private engine: string = `${this.baseUrl}/engine`;
 
-  private winners: string;
-
-  constructor() {
-    this.baseUrl = 'http://localhost:3000';
-    this.garage = `${this.baseUrl}/garage`;
-    this.engine = `${this.baseUrl}/engine`;
-    this.winners = `${this.baseUrl}/winners`;
-  }
+  private winners: string = `${this.baseUrl}/winners`;
 
   public async getCars(page = 1, limit = 7): Promise<{ cars: CarInterface[]; count: string } | null> {
     const data = await fetch(`${this.garage}?_limit=${limit}&_page=${page}`);

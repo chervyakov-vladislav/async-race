@@ -2,11 +2,7 @@ import { EngineData } from '../../shared/models/response-data';
 import { state } from '../../shared/services/state';
 
 class AnimationService {
-  private animationId: number;
-
-  constructor() {
-    this.animationId = 0;
-  }
+  private animationId: number = 0;
 
   public async animation(iconContainer: HTMLElement, data: EngineData, carID: number) {
     const duration = Math.floor(data.distance / data.velocity);
