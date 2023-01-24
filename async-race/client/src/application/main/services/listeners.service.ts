@@ -1,6 +1,7 @@
 import { Options } from '../components/garage/options/options';
 import { garageListService } from './cars-list.service';
 import brands from '../../shared/components/brands';
+import models from '../../shared/components/models';
 import { CarItem } from '../components/garage/cars-list/car-item/car-item';
 import { CarInterface } from '../../shared/models/response-data';
 import { apiService } from '../../shared/services/api.service';
@@ -175,6 +176,7 @@ class GarageListenersService {
       (carItem.pause.node as HTMLButtonElement).disabled = false;
 
       const data = await apiService.startEngine(carData.id as number);
+      animationService.setDistance(this.carItemArr[0].icon.node);
       animationService.animation(carItem.icon.node, data.res, carData.id as number);
 
       const finishSignal = await apiService.isBroken(carData.id as number);
@@ -194,8 +196,9 @@ class GarageListenersService {
   }
 
   private generateRandomName() {
-    const randomIndex = Math.floor(Math.random() * (brands.length - 1));
-    return brands[randomIndex];
+    const randomBrandIndex = Math.floor(Math.random() * (brands.length - 1));
+    const randomModelIndex = Math.floor(Math.random() * (models.length - 1));
+    return `${brands[randomBrandIndex]} ${models[randomModelIndex]}`;
   }
 
   private generateRandomColor() {
