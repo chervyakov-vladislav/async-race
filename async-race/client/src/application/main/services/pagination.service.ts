@@ -1,6 +1,6 @@
 import { CarInterface } from '../../shared/models/response-data';
 import { state } from '../../shared/services/state';
-import { garageListService } from './cars-list.service';
+import { carsListService } from './cars-list.service';
 
 class PaginationService {
   public prevGarageButton: HTMLButtonElement | null = null;
@@ -12,15 +12,15 @@ class PaginationService {
   public nextGaragePage() {
     const currPage = state.getCarsPage() + 1;
     state.setCarsPage(currPage);
-    (garageListService.raceButton as HTMLButtonElement).disabled = false;
-    garageListService.renderCars();
+    (carsListService.raceButton as HTMLButtonElement).disabled = false;
+    carsListService.renderCars();
   }
 
   public prevGaragePage() {
     const currPage = state.getCarsPage() - 1;
     state.setCarsPage(currPage);
-    (garageListService.raceButton as HTMLButtonElement).disabled = false;
-    garageListService.renderCars();
+    (carsListService.raceButton as HTMLButtonElement).disabled = false;
+    carsListService.renderCars();
   }
 
   public checkGarageButtonStyles() {
@@ -43,8 +43,8 @@ class PaginationService {
 
     if (currPage !== 1 && carsOnPage === 0) {
       state.setCarsPage(currPage - 1);
-      (garageListService.raceButton as HTMLButtonElement).disabled = false;
-      garageListService.renderCars();
+      (carsListService.raceButton as HTMLButtonElement).disabled = false;
+      carsListService.renderCars();
     }
   }
 }

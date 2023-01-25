@@ -4,7 +4,7 @@ import { CarItem } from '../components/garage/cars-list/car-item/car-item';
 import { listeners } from './listeners.service';
 import { paginationService } from './pagination.service';
 
-class GarageListService {
+class CarsListService {
   public container: HTMLElement | null = null;
 
   private carItem: HTMLElement | null = null;
@@ -38,5 +38,5 @@ class GarageListService {
   }
 }
 
-const garageListService = new GarageListService();
-export { garageListService };
+const carsListService = new CarsListService();
+export { carsListService };

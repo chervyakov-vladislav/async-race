@@ -1,7 +1,7 @@
 import './counter.scss';
 
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
-import { garageListService } from '../../../services/cars-list.service';
+import { carsListService } from '../../../services/cars-list.service';
 
 export class Counter extends DOMElement {
   public counter: DOMElement;
@@ -18,7 +18,7 @@ export class Counter extends DOMElement {
       classList: ['car-count__counter'],
     });
 
-    garageListService.counter = this.counter.node;
-    garageListService.updateCounter();
+    carsListService.counter = this.counter.node;
+    carsListService.updateCounter();
   }
 }

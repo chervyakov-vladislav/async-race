@@ -1,5 +1,5 @@
 import { Options } from '../components/garage/options/options';
-import { garageListService } from './cars-list.service';
+import { carsListService } from './cars-list.service';
 import brands from '../../shared/components/brands';
 import models from '../../shared/components/models';
 import { CarItem } from '../components/garage/cars-list/car-item/car-item';
@@ -31,8 +31,8 @@ class GarageListenersService {
         name: name,
       };
       await apiService.createCar(car);
-      await garageListService.renderCars();
-      garageListService.updateCounter();
+      await carsListService.renderCars();
+      carsListService.updateCounter();
       (options.createInput.node as HTMLInputElement).value = '';
 
       paginationService.checkGarageButtonStyles();
@@ -46,8 +46,8 @@ class GarageListenersService {
         };
         await apiService.createCar(car);
       }
-      garageListService.renderCars();
-      garageListService.updateCounter();
+      carsListService.renderCars();
+      carsListService.updateCounter();
 
       paginationService.checkGarageButtonStyles();
     });
@@ -64,7 +64,7 @@ class GarageListenersService {
         id: id,
       };
       await apiService.updateCar(car);
-      await garageListService.renderCars();
+      await carsListService.renderCars();
       (options.updateButton.node as HTMLButtonElement).disabled = true;
       (this.updateTextInput as HTMLInputElement).value = '';
 
@@ -134,8 +134,8 @@ class GarageListenersService {
     carItem.remove.node.addEventListener('click', async () => {
       const id = carData.id as number;
       await apiService.deleteCar(id);
-      await garageListService.renderCars();
-      garageListService.updateCounter();
+      await carsListService.renderCars();
+      carsListService.updateCounter();
       const textInput = this.updateTextInput as HTMLInputElement;
       const updateButton = this.updateButton as HTMLButtonElement;
       textInput.value = '';

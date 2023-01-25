@@ -1,6 +1,6 @@
 import './cars-list.scss';
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
-import { garageListService } from '../../../services/cars-list.service';
+import { carsListService } from '../../../services/cars-list.service';
 import { state } from '../../../../shared/services/state';
 import { paginationService } from '../../../services/pagination.service';
 
@@ -26,8 +26,8 @@ export class CarsList extends DOMElement {
       classList: ['car-list__list'],
     });
 
-    garageListService.container = this.list.node;
-    garageListService.renderCars();
+    carsListService.container = this.list.node;
+    carsListService.renderCars();
     paginationService.counter = this.listTitle.node;
   }
 }

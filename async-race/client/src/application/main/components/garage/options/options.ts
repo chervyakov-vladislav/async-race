@@ -4,7 +4,7 @@ import { ButtonElement } from '../../../../shared/components/base-elements/butto
 import { DOMElement } from '../../../../shared/components/base-elements/dom-element';
 import { InputElement } from '../../../../shared/components/base-elements/input-element';
 import { listeners } from '../../../services/listeners.service';
-import { garageListService } from '../../../services/cars-list.service';
+import { carsListService } from '../../../services/cars-list.service';
 
 export class Options extends DOMElement {
   private row: DOMElement;
@@ -110,7 +110,7 @@ export class Options extends DOMElement {
       content: 'generate',
     });
 
-    garageListService.raceButton = this.raceButton.node;
+    carsListService.raceButton = this.raceButton.node;
     listeners.appendOptionsListeners(this);
   }
 }
