@@ -1,7 +1,8 @@
 import { CarInterface, EngineData, WinnerInterface } from '../models/response-data';
 
 class ApiService {
-  private baseUrl: string = 'http://localhost:3000';
+  private baseUrl: string = 'https://async-race-gfmt.onrender.com';
+  // private baseUrl: string = 'http://localhost:3000';
 
   private garage: string = `${this.baseUrl}/garage`;
 
